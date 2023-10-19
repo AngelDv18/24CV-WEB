@@ -1,5 +1,8 @@
 ﻿using _24CV_WEB.Models;
+using _24CV_WEB.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Net;
 using System.Net.Mail;
 
@@ -7,6 +10,12 @@ namespace _24CV_WEB.Controllers
 {
     public class FormulariosController : Controller
     {
+        private readonly iEmailService _emailService;
+        public FormulariosController(iEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -20,6 +29,7 @@ namespace _24CV_WEB.Controllers
             TempData["Comentario"] = comentario;
 
             return View("Index");
+         
         }
 
         public IActionResult EnviarInformacion(EmailViewModel model) 
@@ -27,7 +37,15 @@ namespace _24CV_WEB.Controllers
             TempData["Email"] = model.Email;
             TempData["Comentario"] = model.Comentario;
             SendEmail(model.Email, model.Comentario);
-           
+
+            _emailService.SendEmailWithData(
+                new EmailData()
+                {
+                    Email= model.Email,
+                    Subject = "Notificación de correo",
+                    Content = model.Comentario
+                }
+                );
             return View("Index", model);
         }
 
@@ -45,7 +63,8 @@ namespace _24CV_WEB.Controllers
             mail.Subject = "Notificación de Contacto.";
             mail.IsBodyHtml = true; //informacion que enviamos en en http
             mail.Body = $"Se ha enviado Información del correo <h1>{email}</h1> <br/> <p>{comentario}</p>";
-            
+
+          
             smtp.Send(mail);
 
             return true;
