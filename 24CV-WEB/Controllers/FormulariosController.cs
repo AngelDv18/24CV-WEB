@@ -3,7 +3,6 @@ using _24CV_WEB.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System.Data;
 using System.Net;
 using System.Net.Mail;
 
@@ -61,7 +60,7 @@ namespace _24CV_WEB.Controllers
         }
 
 
-        public bool SendEmail(string email, string Nombre, string Apellido, DateTime FechaNacimiento, Turno TurnoSelect  , string comentario)
+        public bool SendEmail(string email, string comentario)
         {
             MailMessage mail = new MailMessage();
 
@@ -75,7 +74,10 @@ namespace _24CV_WEB.Controllers
             mail.To.Add(email);
             mail.Subject = "Notificación de contacto.";
             mail.IsBodyHtml = true;
-            mail.Body = $"Se ha recibido información del correo <h1>{email}</h1> <br/> <br/> <p>{Nombre}</p> <br/> <p>{Apellido}</p> <br/> <p>{FechaNacimiento}</p> <br/> <p>{TurnoSelect}</p> <br/> <p>{comentario}</p>  ";
+            mail.Body = $"Se ha recibido información del correo <h1>{email}</h1> <br/> <p>{comentario}</p> ";
+
+
+            //mail.Body = $"Se ha recibdo informacion del correo <h1>{model.Email}</h1> <br/> <p>{model.Nombre}</p> <br/> <p>{model.Apellido}</p> <br/> <p>{model.FechaNacimiento}</p> <br/> <p>{model.TurnoSelect}</p> <br/> <p>{model.Comentario}</p>";
 
             smtp.Send(mail);
 
@@ -83,5 +85,3 @@ namespace _24CV_WEB.Controllers
         }
     }
 }
-
-//< p >{ comentario}</ p >
