@@ -15,6 +15,7 @@ namespace _24CV_WEB.Services
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient smtp = new SmtpClient("mail.shapp.mx", 587); //recibe 2 parametro sirve para llamar el correo
+               
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("moises.puc@shapp.mx", "Dhaserck_999");  //moises.puc@shapp.mx Dhaserck_999

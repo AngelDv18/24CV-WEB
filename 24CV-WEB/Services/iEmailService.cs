@@ -6,6 +6,7 @@ namespace _24CV_WEB.Services
     {
         bool SendEmail(string email);
         bool SendEmailWithData(EmailData data);
+        bool sendEmailWithoutData(string email);
 
     }
 }

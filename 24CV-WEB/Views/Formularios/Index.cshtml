@@ -1,8 +1,64 @@
 ﻿@model _24CV_WEB.Models.EmailViewModel
 
 
-
 <div class="row">
+    @if (TempData["Email"] != null)
+    {
+        <div class="alert alert-success">
+            Se ha recibido la información del correo @TempData["Email"] con la siguiente información:
+            <p class="text-sm-start">@TempData["Nombre"]</p>
+            <p class="text-sm-start">@TempData["Apellido"]</p>
+            <p class="text-sm-start">@TempData["FechaNacimiento"]</p>
+            <p class="text-sm-start">@TempData["TurnoSelect"]</p>
+            <p class="text-sm-start">@TempData["Comentario"]</p>
+        </div>
+    }
+
+    <div class="col-12">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Envio de informacion</h2>
+            <p class="text-center">Favor de rellenar todos los campos requeridos para enviar la información</p>
+
+        </div>
+    </div>
+    <div class="col-8">
+        <form asp-action="EnviarInformacion" asp-controller="Formularios" method="post">
+            <div class="mb-3">
+                <label class="col-form-label">Nombre:</label>
+                <input type="text" asp-for="Nombre" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Apellido</label>
+                <input type="text" asp-for="Apellido" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Email</label>
+                <input type="email" asp-for="Email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Fecha de Nacimiento</label>
+                <input type="date" asp-for="FechaNacimiento" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Turno</label>
+                <select asp-for="TurnoSelect" class="form-control">
+                    <option value="Matutino">Matutino</option>
+                    <option value="Vespertino">Vespertino</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Comentario</label>
+                <textarea name="Comentario" rows="4" cols="50"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+@* <div class="row">
 
     @if (TempData["Email"] != null)
     {
@@ -21,11 +77,12 @@
             <div class="mb-3">
                 <label class="col-form-label"> Email</label>
                 <input type="email" asp-for="Email" class="form-control" /> @*name="email"*@
-            </div>
+    
+           @* </div>
             <div class="mb-3">
                 <label class="col-form-label"> Email</label>
                 <textarea class="form-control" asp-for="Comentario" rows="4"></textarea>  @*name="comentario"*@
-            </div>
+  @*          </div>
             <button class="btn-primary" type="submit">Enviar</button>
  
         </form>
@@ -35,4 +92,4 @@
         <h3 class="text-center">Enviar información al correo capturado</h3>
         <p>Se enviara un Correo con la información Capturada.</p>
     </div>
-</div>
+</div>  *@
