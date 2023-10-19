@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _24CV_WEB.Models
 {
+
+    [Table("Curriculums")]
+
     public class Curriculum
     {
+        [Key]
 
         [Required(ErrorMessage ="El campo nombre es requerido")]
         [StringLength(50, ErrorMessage ="Maximo 50 caracteres")]
@@ -20,7 +26,11 @@ namespace _24CV_WEB.Models
         public string Direccion { get; set; }
         [Range(0, 100)]
         public int PorcentajeIngles { get; set; }
+
+        [NotMapped]
         public IFormFile? Foto { get; set; }
+
+        public string RutaFoto { get; set; }
 
     }
 }
