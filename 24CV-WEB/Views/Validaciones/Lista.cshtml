@@ -1,0 +1,32 @@
+﻿@model IEnumerable<_24CV_WEB.Models.Curriculum>
+
+    <h1 class="text-center">Lista de Curriculums</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <tabla class="table table-bordered"> 
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>CURP</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.Apellidos</td>
+                            <td>@item.FechadeNacimiento</td>
+                            <td>@item.CURP</td>
+                        </tr>
+                    }
+                </tbody>
+
+                </thead>
+            </tabla>
+
+        </div>
+
+    </div>

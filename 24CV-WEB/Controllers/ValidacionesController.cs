@@ -26,7 +26,7 @@ namespace _24CV_WEB.Controllers
 
             if (ModelState.IsValid)
             {
-                var response = _curriculumService.Create(model);
+                var response = _curriculumService.Create(model).Result;
 
                 mensaje = response.Message;
                 TempData["msj"] = mensaje;
@@ -39,6 +39,11 @@ namespace _24CV_WEB.Controllers
 
                 return View("Index", model);
             }
+        }
+
+        public IActionResult Lista()
+        {
+            return View(_curriculumService.GetAll());
         }
     }
 }

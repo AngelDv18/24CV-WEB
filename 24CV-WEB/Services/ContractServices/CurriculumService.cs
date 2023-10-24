@@ -16,7 +16,7 @@ namespace _24CV_WEB.Services.ContractServices
         }
 
 
-        public ResponseHelper Create(Curriculum model)
+        public async Task<ResponseHelper> Create(Curriculum model)
         {
 
 
@@ -24,15 +24,33 @@ namespace _24CV_WEB.Services.ContractServices
 
             try
             {
-                if (_repository.Create(model) > 0)
+                string filePath ="";
+
+                if (model.Foto  != null && model.Foto.Length >0)
                 {
-                    responseHelper.Success = true;
-                    responseHelper.Message = $"Se agregó el Curriculum de {model.Nombre} con éxito.";
+                    string fileName = Path.GetFileName(model.Foto.FileName);
+                    filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Fotos", fileName); 
+                      
                 }
-                else
+
+                model.RutaFoto = filePath;
+
+                //copia el archivo de directorio
+                using (var fileStream = new FileStream(filePath,FileMode.Create))
                 {
-                    responseHelper.Message = "Ocurrio un error al agregar el dato.";
+                    await model.Foto.CopyToAsync(fileStream);
                 }
+
+
+                    if (_repository.Create(model) > 0)
+                    {
+                        responseHelper.Success = true;
+                        responseHelper.Message = $"Se agregó el Curriculum de {model.Nombre} con éxito.";
+                    }
+                    else
+                    {
+                        responseHelper.Message = "Ocurrio un error al agregar el dato.";
+                    }
             }
             catch (Exception e)
             {
@@ -51,7 +69,19 @@ namespace _24CV_WEB.Services.ContractServices
 
         public List<Curriculum> GetAll()
         {
-            throw new NotImplementedException();
+            List<Curriculum> list = new List<Curriculum>();
+
+            try
+            {
+                list = _repository.GetAll();
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            return list;
         }
 
         public Curriculum GetCurriculum(int id)
