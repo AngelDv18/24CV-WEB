@@ -25,15 +25,16 @@ namespace _24CV_WEB.Services.ContractServices
             try
             {
                 string filePath ="";
+                string fileName = "";
 
                 if (model.Foto  != null && model.Foto.Length >0)
                 {
-                    string fileName = Path.GetFileName(model.Foto.FileName);
+                    fileName = Path.GetFileName(model.Foto.FileName);
                     filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Fotos", fileName); 
                       
                 }
 
-                model.RutaFoto = filePath;
+                model.RutaFoto = fileName;
 
                 //copia el archivo de directorio
                 using (var fileStream = new FileStream(filePath,FileMode.Create))
