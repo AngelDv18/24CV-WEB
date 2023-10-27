@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _24CV_WEB.Migrations
 {
     /// <inheritdoc />
-    public partial class _19102023 : Migration
+    public partial class _26102023 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,18 +54,20 @@ namespace _24CV_WEB.Migrations
                 name: "Curriculums",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CURP = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechadeNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PorcentajeIngles = table.Column<int>(type: "int", nullable: false),
                     RutaFoto = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Curriculums", x => x.Nombre);
+                    table.PrimaryKey("PK_Curriculums", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(

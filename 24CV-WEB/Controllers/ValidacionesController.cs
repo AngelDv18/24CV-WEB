@@ -21,6 +21,7 @@ namespace _24CV_WEB.Controllers
         [HttpPost]
         public IActionResult EnviarInformacion(Curriculum model)
         {
+
             string mensaje = "";
             //model.RutaFoto = "FakePath";
 
@@ -39,6 +40,7 @@ namespace _24CV_WEB.Controllers
 
                 return View("Index", model);
             }
+
         }
 
         public IActionResult Lista()

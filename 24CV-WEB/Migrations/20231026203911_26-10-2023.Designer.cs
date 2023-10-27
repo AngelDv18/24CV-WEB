@@ -12,8 +12,8 @@ using _24CV_WEB.Repository;
 namespace _24CV_WEB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231019194509_19-10-2023")]
-    partial class _19102023
+    [Migration("20231026203911_26-10-2023")]
+    partial class _26102023
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,9 +229,11 @@ namespace _24CV_WEB.Migrations
 
             modelBuilder.Entity("_24CV_WEB.Models.Curriculum", b =>
                 {
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellidos")
                         .IsRequired()
@@ -252,6 +254,11 @@ namespace _24CV_WEB.Migrations
                     b.Property<DateTime>("FechadeNacimiento")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int>("PorcentajeIngles")
                         .HasColumnType("int");
 
@@ -259,7 +266,7 @@ namespace _24CV_WEB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Nombre");
+                    b.HasKey("Id");
 
                     b.ToTable("Curriculums");
                 });
